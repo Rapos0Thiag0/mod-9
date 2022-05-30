@@ -45,7 +45,7 @@ describe("GET /mensagens/uid", () => {
     const mensagem = await makeMensagem(user.uid);
 
     await request(server)
-      .get(`/mensagens/${user.uid}/${mensagem.uid}`)
+      .get(`/mensagens/${mensagem.uid}`)
       .send()
       .expect(200)
       .expect(async (res) => {
@@ -57,7 +57,7 @@ describe("GET /mensagens/uid", () => {
 
   test("Deve retornar 404 com a mensagem Data not found", async () => {
     await request(server)
-      .get(`/mensagens/${uuid()}/${uuid()}`)
+      .get(`/mensagens/${uuid()}`)
       .send()
       .expect(404, { error: "MESSAGE_NOT_FOUND" });
   });
@@ -71,7 +71,7 @@ describe("GET /mensagens/uid", () => {
     const mensagemErro500 = await makeMensagem(userErro500.uid);
 
     await request(server)
-      .get(`/mensagens/${userErro500.uid}/${mensagemErro500.uid}`)
+      .get(`/mensagens/${mensagemErro500.uid}`)
       .send()
       .expect(500, {
         error: "INTERNAL_SERVER_ERROR",

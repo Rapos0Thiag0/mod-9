@@ -26,7 +26,11 @@ module.exports = {
   coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ["<rootDir>/node_modules/"],
+  coveragePathIgnorePatterns: ["<rootDir>/node_modules/",
+  // "<rootDir>/src/config-swagger.ts",
+  // "<rootDir>/src/features/docs/",
+  // "<rootDir>/src/core/",
+],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",

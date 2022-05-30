@@ -17,12 +17,11 @@ export class EditMessageController implements Controller {
       return badRequest(res, "EMPTY_FIELDS_ERROR");
     }
     try {
-      const { uid, userUid } = req.params;
+      const { uid } = req.params;
       const repository = new MensagemRepository();
 
       const mensagem = await repository.editMessage({
         uid,
-        userUid: userUid,
         ...req.body,
       });
 

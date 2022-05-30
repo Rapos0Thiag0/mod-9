@@ -14,7 +14,6 @@ export default class UserRoutes {
       "/signin",
       new SignInUserController().handle
     ); /* chamada no front no arquivo login */
-
     return routes;
   }
 }

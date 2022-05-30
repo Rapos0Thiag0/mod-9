@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import UserRoutes from "../../features/users/presentation/routes/UserRoutes";
 import MensagemRoutes from "../../features/mensagens/presentation/routes/MensagemRoutes";
+import setupSwagger from "../../config-swagger";
 
 export default class App {
   readonly #express: express.Express;
@@ -29,10 +30,12 @@ export default class App {
       return res.status(200).send("Servidor funcionando!");
     });
 
-    const userRoutes = new UserRoutes().init();
-    this.#express.use(userRoutes);
+    setupSwagger(this.#express);
 
+    const userRoutes = new UserRoutes().init();
     const mensagemRoutes = new MensagemRoutes().init();
+    
+    this.#express.use(userRoutes);
     this.#express.use(mensagemRoutes);
   }
 

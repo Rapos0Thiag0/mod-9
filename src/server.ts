@@ -2,7 +2,7 @@ import App from "./core/presentation/app";
 import Database from "./core/infra/data/connections/Database";
 import "dotenv/config";
 
-Promise.all([new Database().openConnection()])
+new Database().openConnection()
   .then(() => {
     const app = new App();
     app.init();

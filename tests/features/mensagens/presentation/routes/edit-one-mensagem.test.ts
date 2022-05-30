@@ -45,10 +45,11 @@ describe("PUT /mensagens/uid", () => {
     const mensagem = await makeMensagem(user.uid);
 
     await request(server)
-      .put(`/mensagens/${user.uid}/${mensagem.uid}`)
+      .put(`/mensagens/${mensagem.uid}`)
       .send({
         descricao: "Qualquer_descrição_editada",
         detalhamento: "Qualquer_detalhamento_editada",
+        userUid: user.uid,
       })
       .expect(200)
       .expect(async (res) => {
@@ -60,7 +61,7 @@ describe("PUT /mensagens/uid", () => {
 
   test("Deve retorar 400 com a mensagem invalid Data", async () => {
     await request(server)
-      .put(`/mensagens/${uuid()}/${uuid()}`)
+      .put(`/mensagens/${uuid()}`)
       .send({
         descricao: "",
         detalhamento: "",
@@ -75,7 +76,7 @@ describe("PUT /mensagens/uid", () => {
 
   test("Deve retornar 404 com a mensagem Data not found", async () => {
     await request(server)
-      .put(`/mensagens/${uuid()}/${uuid()}`)
+      .put(`/mensagens/${uuid()}`)
       .send({
         descricao: "Qualquer_descrição_editada",
         detalhamento: "Qualquer_detalhamento_editada",
@@ -93,7 +94,7 @@ describe("PUT /mensagens/uid", () => {
     const mensagemErro500 = await makeMensagem(userErro500.uid);
 
     await request(server)
-      .put(`/mensagens/${userErro500}/${mensagemErro500}`)
+      .put(`/mensagens/${mensagemErro500}`)
       .send({
         descricao: "Qualquer_descrição_editada",
         detalhamento: "Qualquer_detalhamento_editada",

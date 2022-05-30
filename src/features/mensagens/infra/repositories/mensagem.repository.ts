@@ -32,9 +32,7 @@ export class MensagemRepository {
   }
 
   async getAllMessages(userUid: string): Promise<Mensagem[]> {
-    const mensagensEntities = await MensagemEntity.find({
-      where: { userUid },
-    });
+    const mensagensEntities = await MensagemEntity.find();
 
     return mensagensEntities.map((mensagensEntity) =>
       this.mapperFromEntityToModel(mensagensEntity)
@@ -57,10 +55,8 @@ export class MensagemRepository {
     return this.mapperFromEntityToModel(mensagemUpdated);
   }
 
-  async destroy(uid: string, userUid: string): Promise<Mensagem | undefined> {
-    const mensagemEntity = await MensagemEntity.findOne(uid, {
-      where: { userUid },
-    });
+  async destroy(uid: string): Promise<Mensagem | undefined> {
+    const mensagemEntity = await MensagemEntity.findOne(uid);
     if (!mensagemEntity) return undefined;
 
     await mensagemEntity.remove();

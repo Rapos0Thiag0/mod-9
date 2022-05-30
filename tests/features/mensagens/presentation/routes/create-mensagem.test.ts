@@ -36,7 +36,7 @@ describe("POST /mensagens", () => {
     const user = await makeUser();
 
     await request(server)
-      .post(`/mensagens/${user.uid}`)
+      .post(`/mensagens`)
       .send({
         descricao: "Qualquer_descrição",
         detalhamento: "Qualquer_detalhamento",
@@ -56,9 +56,7 @@ describe("POST /mensagens", () => {
       .spyOn(MensagemRepository.prototype, "create")
       .mockRejectedValue(new Error("Qualquer_error"));
 
-    const userErro500 = await makeUser();
-
-    await request(server).post(`/mensagens/${userErro500}`).send().expect(500, {
+    await request(server).post(`/mensagens`).send().expect(500, {
       error: "INTERNAL_SERVER_ERROR",
       message: "Qualquer_error",
     });

@@ -10,10 +10,10 @@ import { MensagemRepository } from "../../infra/repositories/mensagem.repository
 export class DestroyMessageController implements Controller {
   async handle(req: Request, res: Response): Promise<any> {
     try {
-      const { uid, userUid } = req.params;
+      const { uid } = req.params;
 
       const repository = new MensagemRepository();
-      const mensagem = await repository.destroy(uid, userUid);
+      const mensagem = await repository.destroy(uid);
 
       if (!mensagem) return notFound(res, "MESSAGE_NOT_FOUND");
 

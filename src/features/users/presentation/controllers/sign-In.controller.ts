@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Controller } from "../../../../core/presentation/contracts/controllers";
 import {
-  badRequest,
   notFound,
   serverError,
   sucess,

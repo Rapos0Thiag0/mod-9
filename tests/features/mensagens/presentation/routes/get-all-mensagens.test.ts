@@ -15,7 +15,7 @@ const makeUser = async (): Promise<UserEntity> => {
   }).save();
 };
 
-describe("GET /mensagens/uid", () => {
+describe("GET /mensagens/all", () => {
   const database = new Database();
   const server = new App().server;
 
@@ -52,7 +52,7 @@ describe("GET /mensagens/uid", () => {
     }).save();
 
     await request(server)
-      .get(`/mensagens/${user.uid}/all`)
+      .get(`/mensagens/all`)
       .send()
       .expect(200)
       .expect(async (res) => {
@@ -85,7 +85,7 @@ describe("GET /mensagens/uid", () => {
 
   test("Deve retornar 404 com a mensagem Data not found", async () => {
     await request(server)
-      .get(`/mensagens/${uuid()}/all`)
+      .get(`/mensagens/all`)
       .send()
       .expect(404, { error: "MESSAGES_NOT_FOUND" });
   });
@@ -95,10 +95,8 @@ describe("GET /mensagens/uid", () => {
       .spyOn(MensagemRepository.prototype, "getAllMessages")
       .mockRejectedValue(new Error("Qualquer_error"));
 
-    const userErro500 = await makeUser();
-
     await request(server)
-      .get(`/mensagens/${userErro500}/all`)
+      .get(`/mensagens/all`)
       .send()
       .expect(500, {
         error: "INTERNAL_SERVER_ERROR",
